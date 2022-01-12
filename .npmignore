@@ -1,0 +1,6 @@
+*.ts
+*.spec.js
+*.spec.d.ts
+*.config.js
+
+!*.d.ts
