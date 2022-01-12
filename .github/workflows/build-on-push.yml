@@ -1,0 +1,8 @@
+name: build-on-push
+
+on: push
+
+jobs:
+  build-on-push:
+    uses: yylat/github-actions-playground/.github/workflows/build.yml@main
+
