@@ -1,14 +1,16 @@
 name: auto-approve
 
-on: pull_request_target
+on:
+  pull_request_target:
+    types: [ labeled, unlabeled, opened, synchronize, reopened, ready_for_review, review_requested ]
 
 jobs:
-  build:
+  auto-approve:
 
     runs-on: ubuntu-latest
     
     steps:
     - uses: hmarr/auto-approve-action@v2
-      if: github.actor == 'dependabot[bot]'
+      if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
       with: 
         github-token: "${{ secrets.GITHUB_TOKEN }}"
