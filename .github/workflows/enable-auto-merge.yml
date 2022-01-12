@@ -4,6 +4,10 @@ on: pull_request_target
 
 jobs:
   enable-auto-merge:
+
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
+
     steps:
       - run: gh pr merge --auto --rebase "$PR_URL"
         env: 

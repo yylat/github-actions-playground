@@ -8,9 +8,9 @@ jobs:
   auto-approve:
 
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
     
     steps:
     - uses: hmarr/auto-approve-action@v2
-      if: contains(github.event.pull_request.labels.*.name, 'auto-approve')
       with: 
         github-token: "${{ secrets.GITHUB_TOKEN }}"
