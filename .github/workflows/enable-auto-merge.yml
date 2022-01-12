@@ -16,7 +16,7 @@ jobs:
 
   auto-approve:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'auto')
+    needs: enable-auto-merge
     steps:
     - uses: hmarr/auto-approve-action@v2
       with: 
