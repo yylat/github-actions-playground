@@ -38,6 +38,6 @@ jobs:
       with:
         branch: workflows/npm-upgrade
         commit-message: "update npm dependencies"
-        labels: auto-approve
+        labels: auto
         title: Update npm dependencies
         token: ${{ secrets.WORKFLOW_GITHUB_TOKEN }}

@@ -6,13 +6,11 @@ updates:
     schedule:
       interval: "monthly"
     labels:
-      - "dependencies"
-      - "auto-approve"
+      - "auto"
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
     labels:
-      - "dependencies"
-      - "auto-approve"
+      - "auto"
