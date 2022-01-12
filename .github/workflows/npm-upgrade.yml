@@ -1,0 +1,41 @@
+name: npm-upgrade
+
+on:
+  schedule:
+    - cron:  '*/30 * * * *'
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+    - run: npx npm-check-updates -u
+    - run: npm install
+    - run: |-
+        git add .
+        git diff --patch --staged > ${{ runner.temp }}/upgrade.patch
+    - uses: actions/upload-artifact@v2
+      with:
+        name: upgrade.patch
+        path: ${{ runner.temp }}/upgrade.patch
+
+  create-pr:
+    needs: upgrade
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: upgrade.patch
+        path: ${{ runner.temp }}
+    - run: '[ -s ${{ runner.temp }}/upgrade.patch ] && git apply ${{ runner.temp
+          }}/upgrade.patch || echo "Empty patch. Skipping."'
+    - uses: peter-evans/create-pull-request@v3
+      with:
+        branch: workflows/npm-upgrade
+        commit-message: "update npm dependencies"
+        labels: auto-approve
+        title: Update npm dependencies
