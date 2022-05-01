@@ -18,7 +18,7 @@ jobs:
     - run: |-
         git add .
         git diff --patch --staged > ${{ runner.temp }}/upgrade.patch
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: upgrade.patch
         path: ${{ runner.temp }}/upgrade.patch
